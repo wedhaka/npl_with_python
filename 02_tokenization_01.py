@@ -28,3 +28,28 @@ doc4 = nlp(u"Let's visit St. Louis in the U.S. next year.")
 
 for ttt in doc4 : 
     print(ttt)
+
+
+doc5 = nlp(u"It is better to give than receive.")
+
+print(len(doc4))
+print(len(doc4.vocab))
+print(doc5[0])
+
+
+doc8 = nlp(u'Apple to build a Hong Kong factory for $6 million')
+
+for tokens in doc8 :
+    print(tokens.text, end=" | ")
+
+for entity in doc8.ents : 
+    print(entity)
+    print(entity.label_)
+    print(str(spacy.explain(entity.label_)))
+    print('\n')
+
+
+doc9 = nlp(u'Autonomous cars shift insurence liability toward manufacturers')
+
+for chunk in doc9.noun_chunks:
+    print(chunk)
