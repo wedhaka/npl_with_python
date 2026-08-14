@@ -1,7 +1,27 @@
-import spacy
+import nltk
+from nltk.stem.porter import PorterStemmer
 
-nlp = spacy.load("en_core_web_sm")
+p_stemmer = PorterStemmer()
 
-mystring = 'We\'
+words = ['run', 'runner', 'ran', 'runs', 'easily', 'fairly', 'fairness']
 
-doc = nlp(u"Tesla is looking at buying U.S. Startup for $6 million")
+for word in words :
+    print(word + "--------->" + p_stemmer.stem(word))
+
+
+from nltk.stem.snowball import SnowballStemmer
+
+s_stemmer = SnowballStemmer(language='english')
+
+print('-------------------------------------------------------------')
+
+for word in words :
+    print(word + '  ------->' + s_stemmer.stem(word))
+
+
+
+words2 = ['generous', 'generation', 'generously', 'generate']
+
+for word in words2 : 
+    print(word + '  ------->' + s_stemmer.stem(word))
+
