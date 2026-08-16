@@ -1,15 +1,20 @@
 import spacy
 
 nlp = spacy.load("en_core_web_sm")
-doc = nlp(u"Tesla is looking at buying U.S. Startup for $6 million")
+
+# print(nlp.Defaults.stop_words)
+print(len(nlp.Defaults.stop_words))
+print(nlp.vocab['mystery'].is_stop)
+
+nlp.Defaults.stop_words.add('btw')
+nlp.vocab['btw'].is_stop = True
+
+print(len(nlp.Defaults.stop_words))
+print(nlp.vocab['btw'].is_stop)
 
 
-for token in doc:
-    print(token.text, token.pos_, token.dep_)
+nlp.Defaults.stop_words.remove('btw')
+nlp.vocab['btw'].is_stop = False
 
-# print(nlp.pipeline)
-
-doc2[0].pos_
-doc2[0].dep_
-
-doc3 = nlp(u"")
+print(len(nlp.Defaults.stop_words))
+print(nlp.vocab['btw'].is_stop)
