@@ -22,3 +22,19 @@ for match_id, start, end in found_matches:
     string_id = nlp.vocab.strings[match_id]
     span = doc[start:end]
     print(match_id, string_id, start, end, span.text)
+
+
+pattern_4 = [{'LOWER': 'solarpower'}]
+pattern_5 = [{'LOWER': 'solar'}, {'IS_PUNCT': True, 'OP': '*'}, {'LOWER': 'power'}]
+
+matcher.add('SolarPower', [pattern_4, pattern_5])
+doc2 = nlp(u"Solar--power is solarpower yay!")
+
+found_matches_1 = matcher(doc2)
+
+print(found_matches_1)
+
+for match_id, start, end in found_matches_1: 
+    string_id = nlp.vocab.strings[match_id]
+    span = doc[start:end]
+    print(match_id, string_id, start, end, span.text)
