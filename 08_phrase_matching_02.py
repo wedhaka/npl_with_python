@@ -1,15 +1,24 @@
 import spacy
-
 nlp = spacy.load("en_core_web_sm")
-doc = nlp(u"Tesla is looking at buying U.S. Startup for $6 million")
 
+from spacy.matcher import PhraseMatcher
 
-for token in doc:
-    print(token.text, token.pos_, token.dep_)
+matcher = PhraseMatcher(nlp.vocab)
 
-# print(nlp.pipeline)
+with open('./Textfiles/reaganomics.txt') as f :
+    doc3 = nlp(f.read())
 
-doc2[0].pos_
-doc2[0].dep_
+phrase_list = ['Voodo economics', 'supply-side economics', 'trickle-down economics', 'free-market economics']
 
-doc3 = nlp(u"")
+phrase_patterns = [nlp(text) for text in phrase_list]
+
+matcher.add('EconMatcher', [*phrase_patterns])
+
+found_matcher = matcher(doc3)
+
+print(found_matcher)
+
+for match_id, start, end in found_matcher: 
+    string_id = nlp.vocab.strings[match_id]
+    span = doc3[start:end]
+    print(match_id, string_id, start, end, span.text)
