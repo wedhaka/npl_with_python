@@ -1,15 +1,24 @@
 import spacy
-
 nlp = spacy.load("en_core_web_sm")
-doc = nlp(u"Tesla is looking at buying U.S. Startup for $6 million")
+
+from spacy.matcher import Matcher
+
+matcher = Matcher(nlp.vocab)
+
+pattern_1 = [{'LOWER': 'solarpower'}]
+pattern_2 = [{'LOWER': 'solar'}, {'IS_PUNCT': True}, {'LOWER': 'power'}]
+pattern_3 = [{'LOWER': 'solar'}, {'LOWER': 'power'}]
 
 
-for token in doc:
-    print(token.text, token.pos_, token.dep_)
+matcher.add('SolarPower', [pattern_1, pattern_2, pattern_3])
 
-# print(nlp.pipeline)
+doc = nlp(u"The Solar power industry continues to grow a solarpower inscreases, Solar-power is")
 
-doc2[0].pos_
-doc2[0].dep_
+found_matches = matcher(doc)
 
-doc3 = nlp(u"")
+print(found_matches)
+
+for match_id, start, end in found_matches: 
+    string_id = nlp.vocab.strings[match_id]
+    span = doc[start:end]
+    print(match_id, string_id, start, end, span.text)
